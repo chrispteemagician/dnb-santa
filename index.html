@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DnB Santa — Your Personalised Message</title>
+    <meta name="description" content="Get a personalised message from DnB Santa in any language, for any occasion. Part of the FeelFamous village ecosystem.">
+    <meta property="og:title" content="DnB Santa — Personalised Messages">
+    <meta property="og:description" content="DnB Santa records a personalised message for you. Any language. Any occasion.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎅</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;900&family=Caveat:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #1a0808;
+            --bg2: #2d1010;
+            --primary: #c41e3a;
+            --accent: #ffd700;
+            --text: #faf0e6;
+            --text2: rgba(250,240,230,0.65);
+            --card-bg: rgba(255,255,255,0.05);
+            --card-border: rgba(196,30,58,0.25);
+            --btn-bg: #c41e3a;
+            --btn-text: #ffd700;
+            --input-bg: rgba(255,255,255,0.07);
+            --input-border: rgba(255,255,255,0.15);
+        }
+        [data-theme="rave"] {
+            --bg: #08000f;
+            --bg2: #120020;
+            --primary: #9d4edd;
+            --accent: #00ffff;
+            --text: #f0eeff;
+            --text2: rgba(240,238,255,0.65);
+            --card-bg: rgba(157,78,221,0.08);
+            --card-border: rgba(157,78,221,0.3);
+            --btn-bg: #9d4edd;
+            --btn-text: #00ffff;
+            --input-bg: rgba(157,78,221,0.1);
+            --input-border: rgba(157,78,221,0.35);
+        }
+        [data-theme="glow"] {
+            --bg: #000814;
+            --bg2: #001524;
+            --primary: #0096ff;
+            --accent: #ffbe0b;
+            --text: #e8f4f8;
+            --text2: rgba(232,244,248,0.65);
+            --card-bg: rgba(0,150,255,0.08);
+            --card-border: rgba(0,150,255,0.3);
+            --btn-bg: #0096ff;
+            --btn-text: #000814;
+            --input-bg: rgba(0,150,255,0.1);
+            --input-border: rgba(0,150,255,0.3);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: var(--bg); color: var(--text); font-family: 'Outfit', sans-serif; min-height: 100vh; transition: background 0.4s, color 0.3s; }
+        .hidden { display: none !important; }
+
+        /* God Mode */
+        #godModeIndicator { background: var(--accent); color: var(--bg); text-align: center; padding: 4px; font-size: 0.72rem; font-weight: 700; letter-spacing: 2px; }
+
+        /* Header */
+        header { background: linear-gradient(180deg, var(--bg2) 0%, var(--bg) 100%); text-align: center; padding: 40px 20px 24px; border-bottom: 1px solid var(--card-border); }
+        .logo-emoji { font-size: 5rem; line-height: 1; display: block; margin-bottom: 10px; cursor: pointer; user-select: none; }
+        h1 { font-size: 3rem; font-weight: 900; color: var(--accent); line-height: 1; margin-bottom: 6px; }
+        .tagline { font-family: 'Caveat', cursive; font-size: 1.35rem; color: var(--text2); margin-bottom: 14px; }
+
+        /* Theme switcher */
+        .theme-switcher { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+        .theme-btn { background: var(--card-bg); border: 1px solid var(--card-border); color: var(--text2); border-radius: 20px; padding: 5px 16px; font-size: 0.82rem; font-family: 'Outfit', sans-serif; cursor: pointer; transition: all 0.2s; }
+        .theme-btn.active, .theme-btn:hover { background: var(--primary); color: var(--accent); border-color: var(--accent); font-weight: 700; }
+
+        /* User bar */
+        #userBar { background: var(--bg2); border-bottom: 1px solid var(--card-border); padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; }
+        #userBar button { background: none; border: none; color: var(--text2); cursor: pointer; font-family: 'Outfit', sans-serif; font-size: 0.78rem; text-decoration: underline; }
+        .tier-badge { display: inline-block; padding: 2px 10px; border-radius: 10px; font-size: 0.72rem; font-weight: 700; background: var(--primary); color: var(--accent); margin-left: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+        /* Main */
+        main { max-width: 580px; margin: 0 auto; padding: 24px 16px 40px; }
+
+        /* Cards */
+        .card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; padding: 24px; margin-bottom: 16px; }
+
+        /* Buttons */
+        .btn { background: var(--btn-bg); color: var(--btn-text); border: none; border-radius: 12px; padding: 14px 24px; font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 700; cursor: pointer; width: 100%; min-height: 52px; transition: opacity 0.2s, transform 0.1s; display: block; text-align: center; }
+        .btn:active { transform: scale(0.98); }
+        .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+        .btn-outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); }
+        .btn-patreon { background: #ff424d; color: white; text-decoration: none; line-height: 52px; padding: 0 24px; border-radius: 12px; }
+        .btn-sm { min-height: 44px; padding: 8px 16px; font-size: 0.9rem; }
+        .flex-row { display: flex; gap: 10px; }
+
+        /* Form */
+        .form-group { margin-bottom: 16px; }
+        label { display: block; font-size: 0.82rem; font-weight: 600; color: var(--text2); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+        input, select, textarea { width: 100%; background: var(--input-bg); border: 1px solid var(--input-border); border-radius: 10px; padding: 12px 14px; color: var(--text); font-family: 'Outfit', sans-serif; font-size: 1rem; outline: none; transition: border-color 0.2s; -webkit-appearance: none; }
+        input:focus, select:focus, textarea:focus { border-color: var(--primary); }
+        select option { background: #1a1a2e; color: #fff; }
+        textarea { resize: vertical; min-height: 90px; }
+
+        /* Loading */
+        @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.6; transform: scale(1.05); } }
+        .pulsing { animation: pulse 1.5s ease-in-out infinite; }
+        .loading-sub { text-align: center; color: var(--text2); font-size: 0.88rem; margin-top: 8px; }
+
+        /* Audio */
+        audio { width: 100%; margin: 14px 0; accent-color: var(--primary); border-radius: 8px; }
+
+        /* Script */
+        .script-text { background: var(--input-bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 16px; font-size: 0.92rem; line-height: 1.65; color: var(--text2); white-space: pre-wrap; margin-top: 10px; }
+        details summary { cursor: pointer; font-size: 0.82rem; color: var(--text2); padding: 4px 0; }
+        details summary:hover { color: var(--text); }
+
+        /* Footer */
+        footer { text-align: center; padding: 24px 16px; color: var(--text2); font-size: 0.78rem; border-top: 1px solid var(--card-border); }
+        footer a { color: var(--accent); text-decoration: none; }
+
+        @media (max-width: 380px) {
+            h1 { font-size: 2.4rem; }
+            .logo-emoji { font-size: 4rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div id="godModeIndicator" class="hidden">⚡ GOD MODE ACTIVE</div>
+
+<header>
+    <span class="logo-emoji" id="logoEmoji" onclick="handleLogoTap()">🎅</span>
+    <h1>DnB Santa</h1>
+    <p class="tagline" id="tagline">"Ho ho ho. Wheels of steel wrapped in tinsel."</p>
+    <div class="theme-switcher">
+        <button class="theme-btn active" onclick="setTheme('christmas')" id="theme-christmas">🎄 Christmas</button>
+        <button class="theme-btn" onclick="setTheme('rave')" id="theme-rave">🎧 Rave</button>
+        <button class="theme-btn" onclick="setTheme('glow')" id="theme-glow">💡 GlowGadgets</button>
+    </div>
+</header>
+
+<div id="userBar" class="hidden">
+    <span>Ho ho! <strong id="userName">Patron</strong><span class="tier-badge" id="userTier">Villager</span></span>
+    <button onclick="signOut()">Sign out</button>
+</div>
+
+<main>
+
+    <!-- Not signed in -->
+    <div id="signInSection" class="card" style="text-align:center;">
+        <div style="font-size:3rem; margin-bottom:12px;">🎁</div>
+        <h2 style="font-size:1.4rem; font-weight:800; color:var(--accent); margin-bottom:8px;">Get Your Personalised Message</h2>
+        <p style="color:var(--text2); margin-bottom:20px; font-size:0.95rem; line-height:1.5;">DnB Santa records a personalised message — your name, your wish, your language, your occasion. Join the FeelFamous Village to unlock it.</p>
+        <button class="btn" onclick="signInWithPatreon()" style="background:#ff424d; color:white;">Sign in with Patreon</button>
+        <p style="margin-top:12px; font-size:0.78rem; color:var(--text2);">Villager and above. From £3/month.</p>
+    </div>
+
+    <!-- Signed in but not a patron -->
+    <div id="notPatronSection" class="hidden card" style="text-align:center;">
+        <div style="font-size:3rem; margin-bottom:12px;">🔒</div>
+        <h2 style="font-size:1.3rem; font-weight:800; color:var(--accent); margin-bottom:8px;">Villager Access Required</h2>
+        <p style="color:var(--text2); margin-bottom:20px; font-size:0.95rem;">DnB Santa messages are a FeelFamous Village perk. Become a Villager from £3/month and unlock personalised audio in 30+ languages.</p>
+        <a href="https://patreon.com/feelfamous" target="_blank" rel="noopener" class="btn" style="background:#ff424d; color:white; text-decoration:none; display:flex; align-items:center; justify-content:center;">Join The Village on Patreon</a>
+    </div>
+
+    <!-- Form -->
+    <div id="formSection" class="hidden">
+        <div class="card">
+            <h2 style="font-size:1.25rem; font-weight:800; color:var(--accent); margin-bottom:4px;">Tell Santa the Details</h2>
+            <p style="color:var(--text2); font-size:0.85rem; margin-bottom:20px;">He'll write and record it personally. One message at a time.</p>
+
+            <div class="form-group">
+                <label>Who's it for?</label>
+                <input type="text" id="inputName" placeholder="e.g. Alfie" maxlength="50" autocomplete="off">
+            </div>
+
+            <div class="form-group">
+                <label>Their Age</label>
+                <input type="number" id="inputAge" placeholder="e.g. 8" min="1" max="99">
+            </div>
+
+            <div class="form-group">
+                <label>Occasion</label>
+                <select id="inputOccasion">
+                    <option value="Christmas">🎄 Christmas</option>
+                    <option value="Birthday">🎂 Birthday</option>
+                    <option value="Rave or Festival">🎧 Rave / Festival</option>
+                    <option value="GlowGadgets Party">💡 GlowGadgets Party</option>
+                    <option value="New Year">🎉 New Year</option>
+                    <option value="Graduation">🎓 Graduation</option>
+                    <option value="Halloween">🎃 Halloween</option>
+                    <option value="Easter">🐣 Easter</option>
+                    <option value="Just Because">💌 Just Because</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Their Wish or Special Message</label>
+                <textarea id="inputWish" placeholder="e.g. They want a new bike. They've been brilliant this year and absolutely loves music..." maxlength="400"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Language</label>
+                <select id="inputLanguage">
+                    <option value="English">English</option>
+                    <option value="Spanish">Español</option>
+                    <option value="French">Français</option>
+                    <option value="German">Deutsch</option>
+                    <option value="Italian">Italiano</option>
+                    <option value="Portuguese">Português</option>
+                    <option value="Dutch">Nederlands</option>
+                    <option value="Polish">Polski</option>
+                    <option value="Swedish">Svenska</option>
+                    <option value="Norwegian">Norsk</option>
+                    <option value="Danish">Dansk</option>
+                    <option value="Finnish">Suomi</option>
+                    <option value="Romanian">Română</option>
+                    <option value="Czech">Čeština</option>
+                    <option value="Slovak">Slovenčina</option>
+                    <option value="Croatian">Hrvatski</option>
+                    <option value="Bulgarian">Български</option>
+                    <option value="Greek">Ελληνικά</option>
+                    <option value="Turkish">Türkçe</option>
+                    <option value="Russian">Русский</option>
+                    <option value="Ukrainian">Українська</option>
+                    <option value="Arabic">العربية</option>
+                    <option value="Hindi">हिन्दी</option>
+                    <option value="Japanese">日本語</option>
+                    <option value="Korean">한국어</option>
+                    <option value="Chinese">中文</option>
+                    <option value="Indonesian">Bahasa Indonesia</option>
+                    <option value="Malay">Bahasa Melayu</option>
+                    <option value="Filipino">Filipino</option>
+                    <option value="Vietnamese">Tiếng Việt</option>
+                    <option value="Thai">ภาษาไทย</option>
+                    <option value="Tamil">தமிழ்</option>
+                </select>
+            </div>
+
+            <button class="btn" id="generateBtn" onclick="generateMessage()">🎅 Get My Message</button>
+        </div>
+    </div>
+
+    <!-- Loading -->
+    <div id="loadingSection" class="hidden card" style="text-align:center; padding:40px 24px;">
+        <div class="pulsing" style="font-size:4rem; margin-bottom:16px;">🎅</div>
+        <p style="font-size:1.1rem; font-weight:700; color:var(--accent);" id="loadingText">Santa's writing your message...</p>
+        <p class="loading-sub">Hold tight. Ho ho ho.</p>
+    </div>
+
+    <!-- Result -->
+    <div id="resultSection" class="hidden">
+        <div class="card">
+            <div style="text-align:center; margin-bottom:16px;">
+                <span style="font-size:2.5rem;">🎅</span>
+                <h2 style="font-size:1.3rem; font-weight:800; color:var(--accent); margin-top:8px;">Your Message is Ready!</h2>
+            </div>
+
+            <audio id="audioPlayer" controls></audio>
+
+            <div class="flex-row" style="margin-bottom:12px;">
+                <button class="btn btn-sm" onclick="downloadAudio()" style="flex:1;">⬇ Download</button>
+                <button class="btn btn-outline btn-sm" onclick="resetForm()" style="flex:1;">🔄 New Message</button>
+            </div>
+
+            <details>
+                <summary>Read Santa's script</summary>
+                <div class="script-text" id="scriptDisplay"></div>
+            </details>
+        </div>
+    </div>
+
+</main>
+
+<footer>
+    <p>Part of the <a href="https://feelfamous.co.uk" target="_blank" rel="noopener">FeelFamous</a> village ecosystem</p>
+    <p style="margin-top:4px; opacity:0.45;">dnbsanta.com</p>
+</footer>
+
+<script>
+// ===== CONFIG =====
+const PATREON_CLIENT_ID = 'A-K7cVCZBl7mQZDlrq0obIq7Jm0RPYAMGstfBsUyEeX-5e6WvU24ZWMTGBuypxot';
+const PATREON_REDIRECT = 'https://dnbsanta.com/auth/patreon';
+const PATREON_OAUTH_URL = `https://www.patreon.com/oauth2/authorize?response_type=code&client_id=${PATREON_CLIENT_ID}&redirect_uri=${encodeURIComponent(PATREON_REDIRECT)}&scope=identity%20identity.memberships`;
+
+// ===== STATE =====
+let patreonSession = null;
+let currentAudioBlob = null;
+
+// ===== THEMES =====
+const THEMES = {
+    christmas: {
+        tagline: '"Ho ho ho. Wheels of steel wrapped in tinsel."',
+        tone: 'Traditional warm Santa energy with DnB rave warmth woven in. Festive, magical, genuinely kind.'
+    },
+    rave: {
+        tagline: '"Big up the massive. Santa\'s in the building."',
+        tone: 'Full MC energy. Big ups, massive respect, rave floor hype. Pure warmth and excitement.'
+    },
+    glow: {
+        tagline: '"Future Santa. Present game. Serious glow."',
+        tone: 'Tech-Santa GlowGadgets energy. Playful, futuristic, gadget vibes, glowing with enthusiasm.'
+    }
+};
+let currentTheme = 'christmas';
+
+function setTheme(theme) {
+    currentTheme = theme;
+    document.body.dataset.theme = theme === 'christmas' ? '' : theme;
+    document.getElementById('tagline').textContent = THEMES[theme].tagline;
+    document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('theme-' + theme).classList.add('active');
+    localStorage.setItem('dnbsanta_theme', theme);
+}
+
+// ===== PATREON AUTH =====
+function signInWithPatreon() {
+    window.location.href = PATREON_OAUTH_URL;
+}
+
+async function handlePatreonCallback() {
+    const code = new URLSearchParams(window.location.search).get('code');
+    if (!code) return;
+    showLoading('Checking your Patreon membership...');
+    try {
+        const res = await fetch(`/.netlify/functions/patreon-auth?code=${encodeURIComponent(code)}`);
+        const data = await res.json();
+        if (data.isPro) {
+            const session = { isPro: true, tier: data.tier, expires: Date.now() + 7 * 24 * 60 * 60 * 1000 };
+            localStorage.setItem('dnbsanta_patreon_session', JSON.stringify(session));
+            patreonSession = session;
+        }
+    } catch(e) { console.error('Patreon callback error:', e); }
+    window.history.replaceState({}, '', '/');
+    updateUI();
+}
+
+function restorePatreonSession() {
+    try {
+        const raw = localStorage.getItem('dnbsanta_patreon_session');
+        if (raw) {
+            const s = JSON.parse(raw);
+            if (s.expires && Date.now() < s.expires) { patreonSession = s; return; }
+            localStorage.removeItem('dnbsanta_patreon_session');
+        }
+    } catch(e) {}
+}
+
+function signOut() {
+    localStorage.removeItem('dnbsanta_patreon_session');
+    patreonSession = null;
+    updateUI();
+}
+
+// ===== UI =====
+function updateUI() {
+    const show = id => document.getElementById(id).classList.remove('hidden');
+    const hide = id => document.getElementById(id).classList.add('hidden');
+
+    hide('loadingSection');
+    hide('resultSection');
+
+    if (!patreonSession) {
+        show('signInSection');
+        hide('notPatronSection');
+        hide('formSection');
+        hide('userBar');
+        return;
+    }
+
+    hide('signInSection');
+    show('userBar');
+    const labels = { villager: 'Villager', elder: 'Elder', founder: 'Founder' };
+    document.getElementById('userTier').textContent = labels[patreonSession.tier] || patreonSession.tier;
+
+    if (patreonSession.isPro) {
+        hide('notPatronSection');
+        show('formSection');
+    } else {
+        show('notPatronSection');
+        hide('formSection');
+    }
+}
+
+function showLoading(text) {
+    ['formSection', 'resultSection', 'signInSection', 'notPatronSection'].forEach(id => document.getElementById(id).classList.add('hidden'));
+    document.getElementById('loadingSection').classList.remove('hidden');
+    if (text) document.getElementById('loadingText').textContent = text;
+}
+
+// ===== GENERATE =====
+async function generateMessage() {
+    const name = document.getElementById('inputName').value.trim();
+    const age = document.getElementById('inputAge').value.trim();
+    const occasion = document.getElementById('inputOccasion').value;
+    const wish = document.getElementById('inputWish').value.trim();
+    const language = document.getElementById('inputLanguage').value;
+
+    if (!name) { alert('Tell Santa who this message is for!'); return; }
+    if (!wish) { alert("Tell Santa their wish or a special message!"); return; }
+
+    showLoading("Santa's writing your message...");
+
+    try {
+        const res = await fetch('/.netlify/functions/generate-message', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, age: age || 'unknown', occasion, wish, language, tone: THEMES[currentTheme].tone })
+        });
+
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        if (data.error) throw new Error(data.error);
+
+        // Base64 audio → Blob
+        const bytes = atob(data.audio);
+        const arr = new Uint8Array(bytes.length);
+        for (let i = 0; i < bytes.length; i++) arr[i] = bytes.charCodeAt(i);
+        currentAudioBlob = new Blob([arr], { type: 'audio/mpeg' });
+
+        document.getElementById('audioPlayer').src = URL.createObjectURL(currentAudioBlob);
+        document.getElementById('scriptDisplay').textContent = data.script;
+        document.getElementById('loadingSection').classList.add('hidden');
+        document.getElementById('resultSection').classList.remove('hidden');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    } catch(e) {
+        console.error(e);
+        document.getElementById('loadingSection').classList.add('hidden');
+        updateUI();
+        alert("Santa hit a snag! Try again in a moment. Ho ho ho.");
+    }
+}
+
+function downloadAudio() {
+    if (!currentAudioBlob) return;
+    const name = document.getElementById('inputName').value.trim() || 'message';
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(currentAudioBlob);
+    a.download = `dnb-santa-${name.toLowerCase().replace(/\s+/g,'-')}.mp3`;
+    a.click();
+}
+
+function resetForm() {
+    currentAudioBlob = null;
+    document.getElementById('resultSection').classList.add('hidden');
+    document.getElementById('formSection').classList.remove('hidden');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ===== GOD MODE =====
+let isAdmin = false, logoTapCount = 0, logoTapTimer = null;
+function handleLogoTap() {
+    logoTapCount++;
+    clearTimeout(logoTapTimer);
+    logoTapTimer = setTimeout(() => { logoTapCount = 0; }, 800);
+    if (logoTapCount >= 3) {
+        logoTapCount = 0;
+        if (isAdmin) { alert('God Mode already active ✓'); return; }
+        const input = prompt('Enter passcode:');
+        if (input === 'Z0d14cM4nTr1n1tyxx') {
+            localStorage.setItem('dnbsanta_god_mode', '1');
+            activateGodMode();
+            alert('God Mode activated 🔥');
+        }
+    }
+}
+function activateGodMode() {
+    isAdmin = true;
+    document.getElementById('godModeIndicator').classList.remove('hidden');
+}
+function checkStoredGodMode() {
+    if (localStorage.getItem('dnbsanta_god_mode') === '1') activateGodMode();
+}
+
+// ===== INIT =====
+window.onload = async function() {
+    checkStoredGodMode();
+    const savedTheme = localStorage.getItem('dnbsanta_theme') || 'christmas';
+    setTheme(savedTheme);
+    restorePatreonSession();
+    if (window.location.search.includes('code=') && window.location.pathname.includes('/auth/patreon')) {
+        await handlePatreonCallback();
+    } else {
+        updateUI();
+    }
+};
+</script>
+</body>
+</html>
