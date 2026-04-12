@@ -124,6 +124,55 @@
     </style>
 </head>
 <body>
+    <!-- ===== SPICYLISTER BANNER — paste this as the FIRST thing inside <body> ===== -->
+<div id="slBanner" style="
+  background: linear-gradient(90deg, #c41e3a 0%, #8b0000 100%);
+  color: #ffd700;
+  text-align: center;
+  padding: 12px 48px 12px 16px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  position: relative;
+  letter-spacing: 0.2px;
+  line-height: 1.4;
+">
+  🎪 Get a <span style="text-decoration:underline;">FREE boot sale table</span> at SpicyLister Village &nbsp;
+  <a href="https://spicylister.co.uk" target="_blank" rel="noopener" style="
+    background: #ffd700;
+    color: #1a0808;
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 900;
+    text-decoration: none;
+    white-space: nowrap;
+    display: inline-block;
+    margin-top: 2px;
+  ">Visit SpicyLister →</a>
+  <button onclick="
+    document.getElementById('slBanner').style.display='none';
+    localStorage.setItem('slBannerDismissed','1');
+  " style="
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: rgba(255,215,0,0.6);
+    font-size: 1.2rem;
+    cursor: pointer;
+    line-height: 1;
+    padding: 4px 6px;
+  " aria-label="Dismiss">✕</button>
+</div>
+<script>
+  if (localStorage.getItem('slBannerDismissed') === '1') {
+    document.getElementById('slBanner').style.display = 'none';
+  }
+</script>
+<!-- ===== END SPICYLISTER BANNER ===== -->
 
 <div id="godModeIndicator" class="hidden">⚡ GOD MODE ACTIVE</div>
 
