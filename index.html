@@ -124,56 +124,7 @@
     </style>
 </head>
 <body>
-    <!-- ===== SPICYLISTER BANNER — paste this as the FIRST thing inside <body> ===== -->
-<div id="slBanner" style="
-  background: linear-gradient(90deg, #c41e3a 0%, #8b0000 100%);
-  color: #ffd700;
-  text-align: center;
-  padding: 12px 48px 12px 16px;
-  font-family: 'Outfit', sans-serif;
-  font-size: 1rem;
-  font-weight: 700;
-  position: relative;
-  letter-spacing: 0.2px;
-  line-height: 1.4;
-">
-  🎪 Get a <span style="text-decoration:underline;">FREE boot sale table</span> at SpicyLister Village &nbsp;
-  <a href="https://spicylister.co.uk" target="_blank" rel="noopener" style="
-    background: #ffd700;
-    color: #1a0808;
-    padding: 4px 14px;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    font-weight: 900;
-    text-decoration: none;
-    white-space: nowrap;
-    display: inline-block;
-    margin-top: 2px;
-  ">Visit SpicyLister →</a>
-  <button onclick="
-    document.getElementById('slBanner').style.display='none';
-    localStorage.setItem('slBannerDismissed','1');
-  " style="
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    color: rgba(255,215,0,0.6);
-    font-size: 1.2rem;
-    cursor: pointer;
-    line-height: 1;
-    padding: 4px 6px;
-  " aria-label="Dismiss">✕</button>
-</div>
-<script>
-  if (localStorage.getItem('slBannerDismissed') === '1') {
-    document.getElementById('slBanner').style.display = 'none';
-  }
-</script>
-<!-- ===== END SPICYLISTER BANNER ===== -->
-
+    
 <div id="godModeIndicator" class="hidden">⚡ GOD MODE ACTIVE</div>
 
 <header>
@@ -210,7 +161,31 @@
         <p style="color:var(--text2); margin-bottom:20px; font-size:0.95rem;">DnB Santa messages are a FeelFamous Village perk. Become a Villager from £3/month and unlock personalised audio in 30+ languages.</p>
         <a href="https://patreon.com/feelfamous" target="_blank" rel="noopener" class="btn" style="background:#ff424d; color:white; text-decoration:none; display:flex; align-items:center; justify-content:center;">Join The Village on Patreon</a>
     </div>
-
+<div id="spannabisBar" style="
+  background: linear-gradient(90deg, #1a4a1a 0%, #2d7a2d 50%, #1a4a1a 100%);
+  color: #f0ffe0;
+  text-align: center;
+  padding: 13px 16px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: 0.1px;
+">
+  🌿 Hola Bilbao massive! If we met at Spannabis — you're already family. Come find your people at
+  <a href="https://cannabin-oid.co.uk" target="_blank" rel="noopener" style="
+    background: #7ed957;
+    color: #0d2b0d;
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 0.88rem;
+    font-weight: 900;
+    text-decoration: none;
+    white-space: nowrap;
+    display: inline-block;
+    margin-left: 4px;
+  ">Cannabin-Oid 👉</a>
+</div>
     <!-- Form -->
     <div id="formSection" class="hidden">
         <div class="card">
@@ -533,6 +508,53 @@ window.onload = async function() {
         updateUI();
     }
 };
+</script>
+    <div style="
+  background: linear-gradient(90deg, #c41e3a 0%, #8b0000 100%);
+  color: #ffd700;
+  text-align: center;
+  padding: 12px 48px 12px 16px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  position: relative;
+  letter-spacing: 0.2px;
+  line-height: 1.4;
+" id="slBanner">
+  🎪 Get a <span style="text-decoration:underline;">FREE boot sale table</span> at SpicyLister Village &nbsp;
+  <a href="https://spicylister.co.uk" target="_blank" rel="noopener" style="
+    background: #ffd700;
+    color: #1a0808;
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 900;
+    text-decoration: none;
+    white-space: nowrap;
+    display: inline-block;
+    margin-top: 2px;
+  ">Visit SpicyLister →</a>
+  <button onclick="
+    document.getElementById('slBanner').style.display='none';
+    localStorage.setItem('slBannerDismissed','1');
+  " style="
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: rgba(255,215,0,0.6);
+    font-size: 1.2rem;
+    cursor: pointer;
+    line-height: 1;
+    padding: 4px 6px;
+  " aria-label="Dismiss">✕</button>
+</div>
+<script>
+  if (localStorage.getItem('slBannerDismissed') === '1') {
+    document.getElementById('slBanner').style.display = 'none';
+  }
 </script>
 </body>
 </html>
