@@ -125,7 +125,80 @@
 </head>
 <body>
     
-    <div id="spannabisBar" style="
+    <!-- SPANNABIS SPLASH — fullscreen on first visit, dismissed to sessionStorage -->
+<div id="spannabisModal" style="
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: linear-gradient(160deg, #0d2b0d 0%, #1a4a1a 40%, #0a1f0a 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 24px 24px;
+  font-family: 'Outfit', sans-serif;
+  color: #f0ffe0;
+  text-align: center;
+  overflow-y: auto;
+">
+  <div style="max-width: 480px; width: 100%;">
+    <div style="font-size: 4rem; line-height: 1; margin-bottom: 8px;">🌿</div>
+    <h1 style="font-size: 2.4rem; font-weight: 900; color: #7ed957; line-height: 1.1; margin-bottom: 12px;">
+      Hola Spannabis
+    </h1>
+    <p style="font-size: 1.15rem; font-weight: 700; color: #f0ffe0; margin-bottom: 8px; line-height: 1.4;">
+      You scanned my vest. Good instincts.
+    </p>
+    <p style="font-size: 0.95rem; color: rgba(240,255,224,0.75); margin-bottom: 28px; line-height: 1.6;">
+      I'm Doc Strange — performer, shaman, cannabis patient, builder of things.<br>
+      I'm building a village for our community. Real people. No algorithm. No ads.<br>
+      You're already welcome in it.
+    </p>
+
+    <a href="https://cannabin-oid.co.uk" style="
+      display: block;
+      background: #7ed957;
+      color: #0d2b0d;
+      font-size: 1.2rem;
+      font-weight: 900;
+      padding: 18px 24px;
+      border-radius: 16px;
+      text-decoration: none;
+      margin-bottom: 12px;
+      letter-spacing: 0.3px;
+    ">🌿 Come find your people</a>
+
+    <p style="font-size: 0.78rem; color: rgba(240,255,224,0.45); margin-bottom: 24px;">
+      cannabin-oid.co.uk — the cannabis village
+    </p>
+
+    <button onclick="dismissSpannabis()" style="
+      background: none;
+      border: 1px solid rgba(240,255,224,0.2);
+      color: rgba(240,255,224,0.45);
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.82rem;
+      padding: 8px 20px;
+      border-radius: 20px;
+      cursor: pointer;
+      letter-spacing: 0.3px;
+    ">Enter DnB Santa →</button>
+  </div>
+</div>
+
+<script>
+  (function() {
+    if (sessionStorage.getItem('spannabis_seen')) {
+      document.getElementById('spannabisModal').style.display = 'none';
+    }
+  })();
+  function dismissSpannabis() {
+    sessionStorage.setItem('spannabis_seen', '1');
+    document.getElementById('spannabisModal').style.display = 'none';
+  }
+</script>
+
+<div id="spannabisBar" style="
   background: linear-gradient(90deg, #1a4a1a 0%, #2d7a2d 50%, #1a4a1a 100%);
   color: #f0ffe0;
   text-align: center;
