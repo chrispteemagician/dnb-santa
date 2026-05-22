@@ -1,4 +1,4 @@
-exports.handler = async (event) => {
+﻿exports.handler = async (event) => {
     const headers = {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Headers': 'Content-Type',
@@ -37,7 +37,7 @@ Start with a strong greeting, get personal and specific, build warmth and energy
             `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,
             {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json', 'Referer': 'https://feelfamous.co.uk/' },
                 body: JSON.stringify({
                     contents: [{ parts: [{ text: prompt }] }],
                     generationConfig: { maxOutputTokens: 350, temperature: 0.85 }
