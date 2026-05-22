@@ -15,7 +15,23 @@
     if (!name || !wish) return { statusCode: 400, headers, body: JSON.stringify({ error: 'Missing required fields' }) };
 
     // Step 1: Gemini writes the script
-    const prompt = `You are DnB Santa — Father Christmas who grew up on drum & bass, jungle and rave music from the 90s and 2000s. You have MC energy — big ups, shout-outs, massive respect — but you're also genuinely kind, warm and magical. You love kids and the dancefloor in equal measure.
+    const isGoodNews = occasion === 'Good Deed Celebration';
+
+    const prompt = isGoodNews
+        ? `You are DnB Santa — host of the Good News Network. Father Christmas who grew up on drum & bass, jungle and rave music from the 90s and 2000s. Your mission: celebrate people who are quietly making the world better. Make them Feel Famous. Big ups, massive respect, genuine warmth.
+
+You are recording a Good News Network shoutout. Rules:
+- 100 to 130 words MAXIMUM
+- Written entirely in ${language}
+- Natural speech rhythm — this will be spoken aloud by a voice model
+- No stage directions, no asterisks, no emoji, no parentheses — only the exact words to be spoken
+- Person being celebrated: ${name}
+- What they did (their kind act): "${wish}"
+- Tone: warm, celebratory, genuine — they deserve to Feel Famous
+- End with "World domination through kindness. One ember at a time." in ${language}
+
+Open with energy, celebrate the specific kind act, make ${name} feel seen and famous, close with the tagline.`
+        : `You are DnB Santa — Father Christmas who grew up on drum & bass, jungle and rave music from the 90s and 2000s. You have MC energy — big ups, shout-outs, massive respect — but you're also genuinely kind, warm and magical. You love kids and the dancefloor in equal measure.
 
 Write a personalised spoken voice message from DnB Santa. Rules:
 - 100 to 120 words MAXIMUM
@@ -34,13 +50,13 @@ Start with a strong greeting, get personal and specific, build warmth and energy
     let script;
     try {
         const geminiRes = await fetch(
-            `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,
+            `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`,
             {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'Referer': 'https://feelfamous.co.uk/' },
+                headers: { 'Content-Type': 'application/json', 'Referer': 'https://www.feelfamous.co.uk/' },
                 body: JSON.stringify({
                     contents: [{ parts: [{ text: prompt }] }],
-                    generationConfig: { maxOutputTokens: 350, temperature: 0.85 }
+                    generationConfig: { maxOutputTokens: 350, temperature: 0.85, thinkingConfig: { thinkingBudget: 0 } }
                 })
             }
         );
@@ -52,7 +68,8 @@ Start with a strong greeting, get personal and specific, build warmth and energy
         }
 
         const geminiData = await geminiRes.json();
-        script = geminiData.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
+        const parts = geminiData.candidates?.[0]?.content?.parts || [];
+        script = (parts.find(p => p.text && !p.thought) || parts[0])?.text?.trim();
         if (!script) return { statusCode: 500, headers, body: JSON.stringify({ error: 'Empty script from Gemini' }) };
 
     } catch(e) {

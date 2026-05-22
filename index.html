@@ -125,105 +125,83 @@
 </head>
 <body>
     
-    <!-- RAVE SPLASH — fullscreen on first visit, dismissed to sessionStorage -->
-<div id="spannabisModal" style="
+    <!-- GOOD NEWS SPLASH — fullscreen on first visit, dismissed to sessionStorage -->
+<div id="goodNewsModal" style="
   position: fixed;
   inset: 0;
   z-index: 9999;
-  background: linear-gradient(160deg, #0a0a1a 0%, #1a0a2e 40%, #0d0018 100%);
+  background: linear-gradient(160deg, #1a0808 0%, #2d1010 50%, #1a0808 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 32px 24px 24px;
   font-family: 'Outfit', sans-serif;
-  color: #f0e8ff;
+  color: #faf0e6;
   text-align: center;
   overflow-y: auto;
 ">
   <div style="max-width: 480px; width: 100%;">
-    <div style="font-size: 4rem; line-height: 1; margin-bottom: 8px;">⚡</div>
-    <h1 style="font-size: 2.4rem; font-weight: 900; color: #ff00ff; line-height: 1.1; margin-bottom: 12px;">
-      Hello Ravers
+    <div style="font-size: 4rem; line-height: 1; margin-bottom: 8px;">🎅</div>
+    <h1 style="font-size: 2.4rem; font-weight: 900; color: #ffd700; line-height: 1.1; margin-bottom: 12px;">
+      The Good News Network
     </h1>
-    <p style="font-size: 1.15rem; font-weight: 700; color: #f0e8ff; margin-bottom: 8px; line-height: 1.4;">
-      You found GlowGadgets. Good instincts.
+    <p style="font-size: 1.15rem; font-weight: 700; color: #faf0e6; margin-bottom: 8px; line-height: 1.4;">
+      DnB Santa is here with something different.
     </p>
-    <p style="font-size: 0.95rem; color: rgba(240,232,255,0.75); margin-bottom: 28px; line-height: 1.6;">
-      I'm Doc Strange. I was on the Bristol rave scene 1999-2003 —<br>
-      the water boy, the torch carrier, the one making sure everyone was okay.<br>
-      GlowGadgets was mine. This is mine too.<br>
-      PLUR was never a slogan. It was how we survived.
+    <p style="font-size: 0.95rem; color: rgba(250,240,230,0.75); margin-bottom: 28px; line-height: 1.6;">
+      Not bad news. Not doom. Just the good stuff.<br>
+      Kind people who deserve to Feel Famous.<br>
+      Good deeds that happened and nobody mentioned.<br>
+      Liquid drum &amp; bass. Warmth. Hope.
     </p>
 
-    <a href="https://glowgadgets.com" style="
+    <button onclick="dismissGoodNews()" style="
       display: block;
-      background: #ff00ff;
-      color: #0a0a1a;
+      width: 100%;
+      background: #c41e3a;
+      color: #ffd700;
       font-size: 1.2rem;
       font-weight: 900;
       padding: 18px 24px;
       border-radius: 16px;
-      text-decoration: none;
-      margin-bottom: 12px;
-      letter-spacing: 0.3px;
-    ">⚡ Come find your people</a>
-
-    <p style="font-size: 0.78rem; color: rgba(240,232,255,0.45); margin-bottom: 24px;">
-      glowgadgets.com — by ravers, for ravers
-    </p>
-
-    <button onclick="dismissSpannabis()" style="
-      background: none;
-      border: 1px solid rgba(240,232,255,0.2);
-      color: rgba(240,232,255,0.45);
-      font-family: 'Outfit', sans-serif;
-      font-size: 0.82rem;
-      padding: 8px 20px;
-      border-radius: 20px;
+      border: none;
       cursor: pointer;
+      margin-bottom: 12px;
+      font-family: 'Outfit', sans-serif;
       letter-spacing: 0.3px;
-    ">Enter DnB Santa →</button>
+    ">🎅 Enter DnB Santa</button>
+
+    <p style="font-size: 0.78rem; color: rgba(250,240,230,0.45);">
+      World domination through kindness. One ember at a time.
+    </p>
   </div>
 </div>
 
 <script>
   (function() {
-    if (sessionStorage.getItem('spannabis_seen')) {
-      document.getElementById('spannabisModal').style.display = 'none';
+    if (sessionStorage.getItem('goodNews_seen')) {
+      document.getElementById('goodNewsModal').style.display = 'none';
     }
   })();
-  function dismissSpannabis() {
-    sessionStorage.setItem('spannabis_seen', '1');
-    document.getElementById('spannabisModal').style.display = 'none';
+  function dismissGoodNews() {
+    sessionStorage.setItem('goodNews_seen', '1');
+    document.getElementById('goodNewsModal').style.display = 'none';
   }
 </script>
 
-<div id="spannabisBar" style="
-  background: linear-gradient(90deg, #1a0a2e 0%, #2d0a4e 50%, #1a0a2e 100%);
-  color: #f0e8ff;
+<div style="
+  background: linear-gradient(90deg, #8b0000 0%, #c41e3a 50%, #8b0000 100%);
+  color: #ffd700;
   text-align: center;
-  padding: 13px 16px;
+  padding: 10px 16px;
   font-family: 'Outfit', sans-serif;
-  font-size: 1rem;
+  font-size: 0.92rem;
   font-weight: 700;
   line-height: 1.5;
-  letter-spacing: 0.1px;
 ">
-  ⚡ By ravers, for ravers. Bristol 1999. PLUR forever. Come find your people at
-  <a href="https://glowgadgets.com" target="_blank" rel="noopener" style="
-    background: #ff00ff;
-    color: #0a0a1a;
-    padding: 4px 14px;
-    border-radius: 20px;
-    font-size: 0.88rem;
-    font-weight: 900;
-    text-decoration: none;
-    white-space: nowrap;
-    display: inline-block;
-    margin-left: 4px;
-  ">GlowGadgets 👉</a>
-    </div>
+  🌍 Part of the <a href="https://feelfamous.co.uk" target="_blank" rel="noopener" style="color:#ffd700; text-decoration:underline;">FeelFamous</a> village &nbsp;·&nbsp; Good deeds welcome &nbsp;·&nbsp; <a href="https://feelfamous.co.uk/founder" target="_blank" rel="noopener" style="color:#ffd700; text-decoration:underline;">Become a Founder</a>
+</div>
 <div id="godModeIndicator" class="hidden">⚡ GOD MODE ACTIVE</div>
 
 <header>
@@ -247,8 +225,8 @@
     <!-- Not signed in -->
     <div id="signInSection" class="card" style="text-align:center;">
         <div style="font-size:3rem; margin-bottom:12px;">🎁</div>
-        <h2 style="font-size:1.4rem; font-weight:800; color:var(--accent); margin-bottom:8px;">Get Your Personalised Message</h2>
-        <p style="color:var(--text2); margin-bottom:20px; font-size:0.95rem; line-height:1.5;">DnB Santa records a personalised message — your name, your wish, your language, your occasion. Join the FeelFamous Village to unlock it.</p>
+        <h2 style="font-size:1.4rem; font-weight:800; color:var(--accent); margin-bottom:8px;">DnB Santa Has a Message</h2>
+        <p style="color:var(--text2); margin-bottom:20px; font-size:0.95rem; line-height:1.5;">Personalised messages for any occasion — or commission DnB Santa to celebrate someone's kindness on the Good News Network. Join the FeelFamous Village to unlock it.</p>
         <button class="btn" onclick="signInWithPatreon()" style="background:#ff424d; color:white;">Sign in with Patreon</button>
         <p style="margin-top:12px; font-size:0.78rem; color:var(--text2);">Villager and above. From £3/month.</p>
     </div>
@@ -257,7 +235,7 @@
     <div id="notPatronSection" class="hidden card" style="text-align:center;">
         <div style="font-size:3rem; margin-bottom:12px;">🔒</div>
         <h2 style="font-size:1.3rem; font-weight:800; color:var(--accent); margin-bottom:8px;">Villager Access Required</h2>
-        <p style="color:var(--text2); margin-bottom:20px; font-size:0.95rem;">DnB Santa messages are a FeelFamous Village perk. Become a Villager from £3/month and unlock personalised audio in 30+ languages.</p>
+        <p style="color:var(--text2); margin-bottom:20px; font-size:0.95rem;">DnB Santa messages are a FeelFamous Village perk. Become a Villager from £3/month and unlock personalised audio in 30+ languages — including Good News Network shoutouts for kind people who deserve to Feel Famous.</p>
         <a href="https://patreon.com/feelfamous" target="_blank" rel="noopener" class="btn" style="background:#ff424d; color:white; text-decoration:none; display:flex; align-items:center; justify-content:center;">Join The Village on Patreon</a>
     </div>
     <!-- Form -->
@@ -278,7 +256,8 @@
 
             <div class="form-group">
                 <label>Occasion</label>
-                <select id="inputOccasion">
+                <select id="inputOccasion" onchange="updateOccasionLabels()">
+                    <option value="Good Deed Celebration">🌟 Good Deed Celebration — Feel Famous</option>
                     <option value="Christmas">🎄 Christmas</option>
                     <option value="Birthday">🎂 Birthday</option>
                     <option value="Rave or Festival">🎧 Rave / Festival</option>
@@ -292,7 +271,7 @@
             </div>
 
             <div class="form-group">
-                <label>Their Wish or Special Message</label>
+                <label id="wishLabel">Their Wish or Special Message</label>
                 <textarea id="inputWish" placeholder="e.g. They want a new bike. They've been brilliant this year and absolutely loves music..." maxlength="400"></textarea>
             </div>
 
@@ -383,6 +362,24 @@ const PATREON_OAUTH_URL = `https://www.patreon.com/oauth2/authorize?response_typ
 // ===== STATE =====
 let patreonSession = null;
 let currentAudioBlob = null;
+
+// ===== OCCASION LABELS =====
+function updateOccasionLabels() {
+    const occasion = document.getElementById('inputOccasion').value;
+    const isGoodDeed = occasion === 'Good Deed Celebration';
+    const nameLabel = document.querySelector('label[for="inputName"], .form-group label');
+    const wishLabel = document.getElementById('wishLabel');
+    if (wishLabel) {
+        wishLabel.textContent = isGoodDeed ? 'What did they do? (the kind act)' : 'Their Wish or Special Message';
+        document.getElementById('inputWish').placeholder = isGoodDeed
+            ? 'e.g. They helped a stranger carry shopping, held the door for everyone, gave their last fiver to someone who needed it...'
+            : "e.g. They want a new bike. They've been brilliant this year and absolutely loves music...";
+    }
+    const formHeader = document.querySelector('#formSection h2');
+    if (formHeader) {
+        formHeader.textContent = isGoodDeed ? 'Commission a Good News Shoutout' : 'Tell Santa the Details';
+    }
+}
 
 // ===== THEMES =====
 const THEMES = {
@@ -576,6 +573,7 @@ window.onload = async function() {
     const savedTheme = localStorage.getItem('dnbsanta_theme') || 'christmas';
     setTheme(savedTheme);
     restorePatreonSession();
+    updateOccasionLabels();
     if (window.location.search.includes('code=') && window.location.pathname.includes('/auth/patreon')) {
         await handlePatreonCallback();
     } else {
