@@ -121,6 +121,98 @@
             h1 { font-size: 2.4rem; }
             .logo-emoji { font-size: 4rem; }
         }
+
+        /* ===== CHILD SAFETY SYSTEM ===== */
+        #csSafetyTab {
+            position: fixed;
+            right: 0;
+            bottom: 80px;
+            z-index: 8000;
+            background: #1a3a2a;
+            border: 2px solid #2d6b45;
+            border-right: none;
+            border-radius: 12px 0 0 12px;
+            padding: 10px 10px 10px 12px;
+            cursor: pointer;
+            writing-mode: horizontal-tb;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            box-shadow: -2px 2px 12px rgba(0,0,0,0.4);
+            transition: background 0.2s;
+            user-select: none;
+        }
+        #csSafetyTab:hover { background: #22472f; }
+        #csSafetyTab .cs-icon { font-size: 1.4rem; line-height: 1; }
+        #csSafetyTab .cs-label { font-family: 'Outfit', sans-serif; font-size: 0.62rem; font-weight: 700; color: #7de8a0; text-align: center; line-height: 1.2; letter-spacing: 0.3px; text-transform: uppercase; }
+
+        #csOverlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 9000;
+            background: rgba(8, 20, 14, 0.97);
+            align-items: center;
+            justify-content: center;
+            padding: 24px 16px;
+            font-family: 'Outfit', sans-serif;
+        }
+        #csOverlay.active { display: flex; }
+
+        .cs-panel {
+            background: #0d2018;
+            border: 2px solid #2d6b45;
+            border-radius: 20px;
+            padding: 32px 24px;
+            max-width: 480px;
+            width: 100%;
+            text-align: center;
+        }
+        .cs-panel .cs-big-icon { font-size: 3.5rem; line-height: 1; margin-bottom: 16px; }
+        .cs-panel h2 { font-size: 1.6rem; font-weight: 900; color: #7de8a0; margin-bottom: 8px; }
+        .cs-panel .cs-sub { color: rgba(200,240,210,0.75); font-size: 0.95rem; line-height: 1.55; margin-bottom: 20px; }
+        .cs-panel textarea {
+            width: 100%;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid #2d6b45;
+            border-radius: 12px;
+            padding: 14px;
+            color: #e0f5e8;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            resize: none;
+            min-height: 110px;
+            outline: none;
+            margin-bottom: 16px;
+        }
+        .cs-panel textarea:focus { border-color: #7de8a0; }
+        .cs-panel textarea::placeholder { color: rgba(200,240,210,0.35); }
+        .cs-send-btn {
+            width: 100%;
+            background: #2d6b45;
+            color: #7de8a0;
+            border: none;
+            border-radius: 12px;
+            padding: 16px 24px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 800;
+            cursor: pointer;
+            margin-bottom: 12px;
+            transition: background 0.2s;
+            min-height: 52px;
+        }
+        .cs-send-btn:hover { background: #3a8a59; }
+        .cs-send-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+        .cs-cancel-link { background: none; border: none; color: rgba(200,240,210,0.45); font-family: 'Outfit', sans-serif; font-size: 0.85rem; cursor: pointer; text-decoration: underline; padding: 4px; }
+        .cs-cancel-link:hover { color: rgba(200,240,210,0.7); }
+
+        .cs-ack { display: none; }
+        .cs-ack.active { display: block; }
+        .cs-form-block.hidden { display: none; }
+        .cs-ack h2 { font-size: 1.8rem; font-weight: 900; color: #7de8a0; margin-bottom: 12px; }
+        .cs-ack p { color: rgba(200,240,210,0.8); font-size: 1rem; line-height: 1.6; margin-bottom: 20px; }
     </style>
 </head>
 <body>
@@ -636,6 +728,83 @@ window.onload = async function() {
     document.getElementById('slBanner').style.display = 'none';
   }
 </script>
-    
+
+<!-- ===== CHILD SAFETY SYSTEM ===== -->
+<div id="csSafetyTab" onclick="openChildSafety()" aria-label="I feel unsafe — get help" role="button" tabindex="0">
+    <span class="cs-icon">🛡️</span>
+    <span class="cs-label">Feeling<br>unsafe?</span>
+</div>
+
+<div id="csOverlay" role="dialog" aria-modal="true" aria-labelledby="csHeading">
+    <div class="cs-panel">
+
+        <!-- FORM STATE -->
+        <div class="cs-form-block" id="csFormBlock">
+            <div class="cs-big-icon">🛡️</div>
+            <h2 id="csHeading">You're safe here.</h2>
+            <p class="cs-sub">Tell us what happened.<br>You don't have to share your name.</p>
+            <textarea id="csMessage" placeholder="Tell us what made you feel unsafe..." maxlength="1000" aria-label="Describe what happened"></textarea>
+            <button class="cs-send-btn" id="csSendBtn" onclick="sendChildSafetyReport()">Send to our safety team →</button>
+            <button class="cs-cancel-link" onclick="closeChildSafety()">Actually I'm OK — close this</button>
+        </div>
+
+        <!-- ACKNOWLEDGEMENT STATE -->
+        <div class="cs-ack" id="csAck">
+            <div class="cs-big-icon">🛡️</div>
+            <h2>We've got you.</h2>
+            <p>We're looking at this right now.<br><br>You did the right thing.</p>
+            <button class="cs-send-btn" onclick="closeChildSafety()">Close</button>
+        </div>
+
+    </div>
+</div>
+
+<script>
+function openChildSafety() {
+    document.getElementById('csOverlay').classList.add('active');
+    document.getElementById('csMessage').focus();
+}
+function closeChildSafety() {
+    document.getElementById('csOverlay').classList.remove('active');
+    document.getElementById('csFormBlock').classList.remove('hidden');
+    document.getElementById('csAck').classList.remove('active');
+    document.getElementById('csMessage').value = '';
+    document.getElementById('csSendBtn').disabled = false;
+    document.getElementById('csSendBtn').textContent = 'Send to our safety team →';
+}
+document.getElementById('csSafetyTab').addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openChildSafety(); }
+});
+document.getElementById('csOverlay').addEventListener('click', e => {
+    if (e.target === document.getElementById('csOverlay')) closeChildSafety();
+});
+
+async function sendChildSafetyReport() {
+    const message = document.getElementById('csMessage').value.trim();
+    if (!message) {
+        document.getElementById('csMessage').focus();
+        return;
+    }
+    const btn = document.getElementById('csSendBtn');
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+    try {
+        await fetch('/.netlify/functions/child-safety-report', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                message,
+                page: window.location.href,
+                timestamp: new Date().toLocaleString('en-GB', { timeZone: 'Europe/London' })
+            })
+        });
+    } catch(e) {
+        console.error('Child safety send error:', e);
+    }
+    document.getElementById('csFormBlock').classList.add('hidden');
+    document.getElementById('csAck').classList.add('active');
+}
+</script>
+
 </body>
 </html>
