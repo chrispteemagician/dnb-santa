@@ -515,6 +515,9 @@ function signInWithPatreon() {
 async function handlePatreonCallback() {
     const code = new URLSearchParams(window.location.search).get('code');
     if (!code) return;
+    // Patreon codes are single-use — strip it before the async exchange so a
+    // reload or slow mobile round-trip can never resubmit the same code.
+    window.history.replaceState({}, '', '/');
     showLoading('Checking your Patreon membership...');
     try {
         const res = await fetch(`/.netlify/functions/patreon-auth?code=${encodeURIComponent(code)}`);
@@ -525,7 +528,6 @@ async function handlePatreonCallback() {
             patreonSession = session;
         }
     } catch(e) { console.error('Patreon callback error:', e); }
-    window.history.replaceState({}, '', '/');
     updateUI();
 }
 
