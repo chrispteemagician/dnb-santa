@@ -656,19 +656,33 @@ function resetForm() {
 
 // ===== GOD MODE =====
 let isAdmin = false, logoTapCount = 0, logoTapTimer = null;
-function handleLogoTap() {
+async function gmHash(text) {
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+async function handleLogoTap() {
     logoTapCount++;
     clearTimeout(logoTapTimer);
     logoTapTimer = setTimeout(() => { logoTapCount = 0; }, 800);
     if (logoTapCount >= 3) {
         logoTapCount = 0;
         if (isAdmin) { alert('God Mode already active ✓'); return; }
-        const input = prompt('Enter passcode:');
-        if (input === 'FeelFamousBaby2026Trinity!') {
+        const storedHash = localStorage.getItem('dnbsanta_god_hash');
+        if (!storedHash) {
+            const p1 = prompt('First time — set your God Mode passcode:');
+            if (!p1 || p1.length < 6) return;
+            if (p1 !== prompt('Confirm passcode:')) { alert("Passcodes don't match."); return; }
+            localStorage.setItem('dnbsanta_god_hash', await gmHash(p1));
             localStorage.setItem('dnbsanta_god_mode', '1');
             activateGodMode();
-            alert('God Mode activated 🔥');
+            alert('God Mode activated 🔥 (passcode set)');
+            return;
         }
+        const input = prompt('Enter passcode:');
+        if (!input || (await gmHash(input)) !== storedHash) { alert('Wrong passcode.'); return; }
+        localStorage.setItem('dnbsanta_god_mode', '1');
+        activateGodMode();
+        alert('God Mode activated 🔥');
     }
 }
 function activateGodMode() {
