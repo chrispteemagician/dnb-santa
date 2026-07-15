@@ -13,6 +13,16 @@
   to = "/index.html"
   status = 200
 
+# Wild Gardens Festival weekend, 16-19 July 2026: DnB Santa is on the van,
+# send visitors straight to the FeelFamous Basecamp / Chill Zone instead of
+# the Santa tool. Netlify-level redirect, no DNS change at the registrar.
+# Remove this block after the festival to bring the Santa tool back.
+[[redirects]]
+  from = "/*"
+  to = "https://feelfamous-basecamp.netlify.app/"
+  status = 302
+  force = true
+
 [functions]
   directory = "netlify/functions"
   node_bundler = "esbuild"
