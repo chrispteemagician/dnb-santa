@@ -47,39 +47,26 @@ Part of the FeelFamous ecosystem. Live at dnbsanta.com.
 
 ## Free-to-use philosophy (Chris, 2026-07-13 — read before adding any gate)
 
-DnB Santa's message maker is free for everyone, no sign-in, no lock icon, no
-"Villager+ only" banner. Fill in the form, get your message — that's it.
+The core tool is free for everyone, no sign-in, no lock icon, no "Villager+
+only" banner. Don't gate the tool itself behind Patreon.
 
-**Audit note (2026-07-13):** this repo previously hard-gated the entire form
-behind Patreon sign-in — a "Sign in with Patreon" wall, then a 🔒 "Villager
-Access Required" screen for anyone signed in but not a paying patron. The
-gate was purely client-side UI: `netlify/functions/generate-message.js` never
-checked `isPro`/`patron_status` at all, so the enforcement didn't actually
-protect anything, it just turned away genuine visitors. Removed both blocking
-screens; `formSection` now shows unconditionally and `updateUI()` no longer
-hides it behind `patreonSession`.
+**History (don't re-add):** this repo previously hard-gated the entire form
+behind Patreon sign-in ("Sign in with Patreon" wall + 🔒 "Villager Access
+Required" screen) even though `generate-message.js` never checked
+`isPro`/`patron_status` server-side — the gate was pure client-side UI
+blocking genuine visitors for nothing. Removed; `formSection` now shows
+unconditionally. No genuine bucket-2 hosted-page perk exists in this app (no
+gallery, no member profile page — "Good News Network" is a splash concept,
+not a stored public board), so nothing is currently gated. Signing in with
+Patreon only shows a tier badge, never blocks anything.
 
-**What Patreon sign-in is for now:** nothing gates on it. Signing in with
-Patreon only shows your Village tier badge (Villager/Elder/Founder) next to
-your name in the header if you're already a supporter — a nice-to-have, not
-a requirement. `patreon-auth.js` and `signInWithPatreon()` are unchanged;
-only the UI that used to block access on their result was removed. There is
-no hosted public page or persistent record this app produces per user (no
-gallery, no member profile page) — the "Good News Network" is a splash/intro
-concept, not a stored public board — so there was never a genuine bucket-2
-infrastructure perk to keep gated here.
+**The ask, when there is one:** one honest, low-key line after the task
+completes — free to use, tell a mate if it helped, buy-me-a-coffee if you
+want to say thanks (one-off, `buymeacoffee.com/chrispteemagician`), Patreon
+if you want to be a regular (`patreon.com/feelfamous`). Not a gate. Not
+gamified. Hidden automatically once `patreonSession.isPro` is true.
 
-**The ask:** one honest, low-key honesty-box message shown once, under the
-result (audio player + script) after Santa's already done the job — free to
-use, tell a mate if it helped, one-off
-[buy me a coffee](https://buymeacoffee.com/chrispteemagician) if you want to
-say thanks, [Patreon](https://patreon.com/feelfamous) if you want to be a
-regular. Hidden automatically if `patreonSession.isPro` is true (already a
-supporter — no need to ask again). Not a gate. Not gamified.
-
-This same pattern is rolling out across the rest of the -oid ecosystem —
-check other repos' CLAUDE.md for the shared version before assuming this
-file is the only place it applies.
+Full doctrine + mechanical pattern: DocBrain `tech/free-to-use-degate-skill.md`.
 
 ---
 
