@@ -1,13 +1,13 @@
 # DnB Santa
 
-> Drum and bass Santa. Personalised Santa messages with a rave edge. FeelFamous face. Community-funded festive mayhem.
+> Free personalised voice-message maker. Father Christmas who grew up on drum & bass, jungle and rave music writes a short spoken script and records it as audio, in 30+ languages. Three themes: Christmas, Rave, GlowGadgets.
 
 ## Pages
 
-- [Home](https://dnbsanta.com/): Home — personalised drum and bass Santa messages
+- [Home](https://dnbsanta.com/): Fill in a name, age, occasion, wish/message and language — get a personalised spoken message back. One occasion, "Good Deed Celebration", celebrates someone's kind act instead of a wish. Free, no sign-in required.
 
 ## About
 
 Part of the FeelFamous ecosystem — free AI tools for specialists, collectors, and personal sellers.
 Built by Chris P Taylor (Doc Strange). PLUR. World domination through kindness. One ember at a time.
-Contact: chris@chrisptee.com
+Contact: chris@chrisptee.co.uk
