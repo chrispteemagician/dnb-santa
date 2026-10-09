@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book DnB Santa — Schools, Assemblies &amp; Events</title>
+<meta name="description" content="Book DnB Santa for a school assembly, story visit or event. A story, a laugh, a group photo, and he's off again.">
+<link rel="canonical" href="https://dnbsanta.com/book.html">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎅</text></svg>">
+<style>
+:root{--bg:#1a0808;--bg2:#2d1010;--primary:#c41e3a;--accent:#ffd700;--text:#faf0e6;--text2:rgba(250,240,230,.8);--line:rgba(255,255,255,.25)}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--text);font:18px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif;padding:0 16px 48px}
+a{color:var(--accent)}
+.skip{position:absolute;left:-999px}.skip:focus{left:8px;top:8px;background:#fff;color:#000;padding:8px;z-index:9}
+main{max-width:640px;margin:0 auto}
+h1{font-size:1.8rem;color:var(--accent);margin:24px 0 8px}
+h2{font-size:1.2rem;color:var(--accent);margin:24px 0 8px}
+p,li{color:var(--text2)}
+ul{padding-left:1.2em}
+.card{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:18px;margin:16px 0}
+label{display:block;font-weight:700;margin:14px 0 4px}
+input,select,textarea{width:100%;font:inherit;color:var(--text);background:rgba(255,255,255,.08);border:1px solid var(--line);border-radius:10px;padding:12px;min-height:48px}
+select option{color:#000}
+textarea{min-height:110px}
+input:focus,select:focus,textarea:focus,button:focus,a:focus{outline:3px solid var(--accent);outline-offset:2px}
+button{margin-top:20px;width:100%;min-height:52px;font:inherit;font-weight:800;background:var(--primary);color:var(--accent);border:0;border-radius:12px;cursor:pointer}
+.hp{position:absolute;left:-999px}
+#sent{display:none;border:2px solid var(--accent)}
+.small{font-size:.9rem}
+</style>
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+<main id="content">
+<p style="margin-top:20px"><a href="/">&larr; DnB Santa</a></p>
+<h1>🎅 Book DnB Santa</h1>
+<p>Schools, assemblies, nurseries, community events. He comes in, tells a story, has a laugh with everyone, you get a group photo, and he heads off. No queue of children, no individual presents.</p>
+
+<div id="sent" class="card" role="status"><strong>Got it, thank you.</strong> Chris will reply by email, usually within a few days. If it's urgent, say so in the message box next time.</div>
+
+<div class="card">
+<h2 style="margin-top:0">How a visit works</h2>
+<ul>
+<li>Around 20–30 minutes. Santa reads or tells a story to children sat together.</li>
+<li>A bit of a laugh, then one group photo.</li>
+<li>Then he clears off. No one-to-one presents.</li>
+<li>Enhanced DBS checked. Certificate available on request.</li>
+<li>A teacher or adult stays in the room the whole time.</li>
+</ul>
+<p class="small">Price depends on the place, the date and the travel. Tell us what you have in mind and you'll get a quote back.</p>
+</div>
+
+<form name="santa-booking" method="POST" action="/book.html?sent=1" data-netlify="true" netlify-honeypot="bot-field" class="card">
+<input type="hidden" name="form-name" value="santa-booking">
+<p class="hp"><label>Leave this empty <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+
+<label for="name">Your name</label>
+<input id="name" name="name" required autocomplete="name">
+
+<label for="org">School or group (if any)</label>
+<input id="org" name="organisation" autocomplete="organization">
+
+<label for="email">Email</label>
+<input id="email" name="email" type="email" required autocomplete="email">
+
+<label for="phone">Phone (optional)</label>
+<input id="phone" name="phone" type="tel" autocomplete="tel">
+
+<label for="type">What are you after?</label>
+<select id="type" name="type" required>
+<option value="">Choose one</option>
+<option>School assembly or story visit</option>
+<option>Nursery or playgroup</option>
+<option>Community or charity event</option>
+<option>Festival or party slot</option>
+<option>Something else</option>
+</select>
+
+<label for="date">Date or dates you're thinking of</label>
+<input id="date" name="date" placeholder="e.g. week of 14 December">
+
+<label for="where">Where? (town or postcode)</label>
+<input id="where" name="location" required>
+
+<label for="msg">Anything else?</label>
+<textarea id="msg" name="message" placeholder="Age of the children, how many, how long you'd like him for"></textarea>
+
+<button type="submit">Send enquiry</button>
+<p class="small" style="margin-top:12px">Your details go to Chris only and are used to reply to you. Nothing is sold or shared.</p>
+</form>
+<p class="small">Prefer email? <a href="mailto:chris@chrisptee.co.uk">chris@chrisptee.co.uk</a></p>
+</main>
+<script>
+if(/[?&]sent=1/.test(location.search)){var s=document.getElementById('sent');s.style.display='block';var f=document.querySelector('form');if(f)f.style.display='none';}
+</script>
+</body>
+</html>
