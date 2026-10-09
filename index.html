@@ -27,7 +27,7 @@
     </script>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎅</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;900&family=Caveat:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg: #1a0808;
@@ -83,7 +83,7 @@
         header { background: linear-gradient(180deg, var(--bg2) 0%, var(--bg) 100%); text-align: center; padding: 40px 20px 24px; border-bottom: 1px solid var(--card-border); }
         .logo-emoji { font-size: 5rem; line-height: 1; display: block; margin-bottom: 10px; cursor: pointer; user-select: none; }
         h1 { font-size: 3rem; font-weight: 900; color: var(--accent); line-height: 1; margin-bottom: 6px; }
-        .tagline { font-family: 'Caveat', cursive; font-size: 1.35rem; color: var(--text2); margin-bottom: 14px; }
+        .tagline { font-family: 'Outfit', sans-serif; font-style: italic; font-size: 1.15rem; color: var(--text2); margin-bottom: 14px; }
 
         /* Theme switcher */
         .theme-switcher { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
@@ -162,6 +162,7 @@
             user-select: none;
         }
         #csSafetyTab:hover { background: #22472f; }
+        @media (max-width: 600px) { #csSafetyTab { bottom: 12px; padding: 6px 7px 6px 8px; } #csSafetyTab .cs-icon { font-size: 1.1rem; } #csSafetyTab .cs-label { font-size: 0.5rem; } }
         #csSafetyTab .cs-icon { font-size: 1.4rem; line-height: 1; }
         #csSafetyTab .cs-label { font-family: 'Outfit', sans-serif; font-size: 0.62rem; font-weight: 700; color: #7de8a0; text-align: center; line-height: 1.2; letter-spacing: 0.3px; text-transform: uppercase; }
 
