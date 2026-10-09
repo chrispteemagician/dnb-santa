@@ -79,3 +79,13 @@ Full doctrine + mechanical pattern: DocBrain `tech/free-to-use-degate-skill.md`.
 - All Patreon links point to `https://patreon.com/feelfamous` (the wider
   FeelFamous Village campaign, not a dnbsanta-specific one) — unchanged,
   pricing unchanged (£4.95 Villager / £14.95 Founder).
+
+---
+
+## Session History
+
+### 2026-10-09 — Tinsel 🎄 (booking-site rebuild + accessibility pass)
+- Redirect to Basecamp lifted; the site is now a live-booking page for DnB Santa (business/organisation visits from £495, equipment hire £150, school assemblies only). `/book.html` = Netlify Forms enquiry form (`santa-booking`), `/walk.html` = QR landing page (noindex).
+- **The AI message maker is gone on purpose** (Chris: people see it as AI slop, they want a live Santa). `generate-message.js` and `patreon-auth.js` deleted; no ElevenLabs/Gemini/Patreon in this repo any more. Don't rebuild an AI generator without asking Chris. Real photos only, no AI pictures of him. The sections above describing the generator and Patreon are history, not current.
+- WCAG pass on all three pages (backup `backup/pre-wcag-remediation-20261009`): only real contrast failure was gold on red button text (4.17:1), changed to white. Added skip links, `<main id="content">`, decorative emoji `aria-hidden`, footer link padding, and a **Readable Mode** toggle on every page (`localStorage` key `dnb_readable_mode`, root font 24px, text to white, animation frozen). Child-safety tab kept; on phones it overlaps text edges slightly while scrolling.
+- Name rules: DnB Santa only, never "Chris P Santa". No tax claims on the site. See DocBrain `projects/dnbsanta.md`.
