@@ -8,11 +8,6 @@
     X-Frame-Options = "DENY"
     X-Content-Type-Options = "nosniff"
 
-[[redirects]]
-  from = "/auth/patreon"
-  to = "/index.html"
-  status = 200
-
 # Wild Gardens Festival (July 2026) redirect to Basecamp removed 2026-10-09
 # on Chris's go-ahead: DnB Santa is open again for the Christmas run-up.
 # Backup of the pre-change state: branch backup/pre-santa-booking-20261009.
