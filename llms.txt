@@ -9,5 +9,5 @@
 
 ## About
 
-Part of the FeelFamous ecosystem. Built by Chris P Taylor (Doc Strange). Enhanced DBS checked. Just trying to be useful. One ember at a time.
+Part of the FeelFamous ecosystem. Built by Chris P Taylor (Doc Strange). Just trying to be useful. One ember at a time.
 Contact: chris@chrisptee.co.uk
